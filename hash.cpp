@@ -4,7 +4,7 @@
 
 template< class Key , class ItemType >
 Hash<Key, ItemType>::Hash( void ){
-	keyList = factoryList<KeyNode>() ;
+	keyList = factoryList<Key>() ;
    	for(int idx = 0 ; idx < DEFAULT_CAPACITY ; idx++ ) {
 		itemsList[ idx ] = factoryList<ItemType>() ;
 	}

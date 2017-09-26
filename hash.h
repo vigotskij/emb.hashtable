@@ -32,7 +32,7 @@ class Hash: public IHash< Key, ItemType > {
 				KeyNode& operator= (const KeyNode &keyNode ) ;
 		};
 
-		IList<KeyNode> *keyList ;
+		IList<Key> *keyList ;
 		IList<ItemType> *itemsList[ DEFAULT_CAPACITY ] ;
 
 	public:
