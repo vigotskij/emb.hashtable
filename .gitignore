@@ -28,6 +28,9 @@
 *.out
 *.app
 
+# useless things
+# main.cpp
+
 # Created by IDE
   #codeblocks
 *.cbp
@@ -43,3 +46,4 @@
 *.cbproj
 *cbproj.local
 *.res
+**temp
