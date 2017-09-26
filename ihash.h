@@ -1,10 +1,24 @@
 #ifndef IHASH_H
 #define IHASH_H
 
+typedef unsigned long Pos ;
+typedef unsigned long size_t ;
+
 template <class Key , class ItemType >
 class IHash {
 	public:
-		virtual void release( void ) = 0 ;
+		// adding and extracting functions
+		virtual void append( const ItemType value ) = 0 ;
+		virtual ItemType extract( const ItemType value ) = 0 ;
+		virtual ItemType extract( const Key key , const Pos position ) = 0 ;
+		virtual ItemType extractFirst( const Key key ) = 0 ;
+		virtual ItemType extractLast( const Key key ) = 0 ;
+		// info and managing space functions
+		virtual size_t sizeOfList( const Key key ) = 0 ;
+		virtual size_t sizeOfList( void ) = 0 ;
+		virtual size_t sizeOfTable( void ) = 0 ;
+
+		virtual void clear( void ) = 0 ;
 };
 
 #endif // IHASH_H
