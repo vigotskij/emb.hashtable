@@ -11,9 +11,7 @@
 	#include "GeneralHashFunctions.h"
 #endif
 
-template <	class Key ,
-			class ItemType ,
-			class Key HashFunction( ItemType ) = RSHash >
+template <class Key, class ItemType, typename Key HashFunction( ItemType ) = RSHash >
 class Hash: public IHash< Key, ItemType, HashFunction > {
 	private:
 		enum{ DEFAULT_CAPACITY = 100 };
@@ -49,8 +47,8 @@ class Hash: public IHash< Key, ItemType, HashFunction > {
 		virtual ItemType extractLast( const Key key ) ;
 		// info and managing space functions
 		virtual size sizeOfList( const Key key ) ;
-		virtual size sizeOfList( void ) ;
 		virtual size sizeOfTable( void ) ;
+		virtual size Keys( void ) ;
 		virtual bool isEmpty( void ) ;
 		virtual bool isEmpty( const Key key ) ;
 		virtual bool isFull( void ) ;
@@ -60,7 +58,7 @@ class Hash: public IHash< Key, ItemType, HashFunction > {
 		virtual void clear( void ) ;
 };
 
-template <class Key , class ItemType , typename Key HashFunction( ItemType ) = RSHash >
+template <class Key , class ItemType , typename Key HashFunction( ItemType )>
 IHash< Key , ItemType , HashFunction >* factoryHash( void ) {
 	return new Hash< Key , ItemType , HashFunction > ;
 }

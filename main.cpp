@@ -3,7 +3,7 @@
 #endif
 
 int main( int argv , char* argc[] ) {
-	IHash< int , char* > *hash = factoryHash< int , char* >() ;
+	IHash< int , char* , RSHash > *hash = factoryHash< int , char* , RSHash >() ;
 
 	delete hash ;
 
