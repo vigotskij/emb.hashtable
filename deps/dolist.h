@@ -14,14 +14,12 @@ class DOList: public IList<ItemType>{
 		struct Node{
 			ItemType value ;
 
-			void *outptr ;
-
 			Node *next ;
 			Node *prev ;
 
 			Node( void ){
 				value = nullptr ;
-				outptr, next, prev = nullptr ;
+				next, prev = nullptr ;
 
 			}
 			~Node( void ) { } ;
