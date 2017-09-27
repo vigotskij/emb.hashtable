@@ -4,7 +4,7 @@
 typedef unsigned long Pos ;
 typedef unsigned long size ;
 
-template <class Key , class ItemType , typename Key HashFunction( ItemType value) = RSHash >
+template <class Key , class ItemType , typename Key HashFunction( const ItemType& value)>
 class IHash {
 	public:
 		// adding and extracting functions

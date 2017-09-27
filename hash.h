@@ -11,7 +11,7 @@
 	#include "GeneralHashFunctions.h"
 #endif
 
-template <class Key, class ItemType, typename Key HashFunction( ItemType ) = RSHash >
+template <class Key, class ItemType, typename Key HashFunction( const ItemType& )>
 class Hash: public IHash< Key, ItemType, HashFunction > {
 	private:
 		enum{ DEFAULT_CAPACITY = 100 };
@@ -32,8 +32,7 @@ class Hash: public IHash< Key, ItemType, HashFunction > {
 				KeyNode& operator= (const KeyNode &keyNode ) ;
 		};
 
-		Key keys[ DEFAULT_CAPACITY ] ;
-		IList<ItemType> *itemsList[ DEFAULT_CAPACITY ] ;
+		KeyNode table[ DEFAULT_CAPACITY ] ;
 
 	public:
 		Hash( void ) ;
@@ -58,7 +57,7 @@ class Hash: public IHash< Key, ItemType, HashFunction > {
 		virtual void clear( void ) ;
 };
 
-template <class Key , class ItemType , typename Key HashFunction( ItemType )>
+template <class Key , class ItemType , typename Key HashFunction( const ItemType& )>
 IHash< Key , ItemType , HashFunction >* factoryHash( void ) {
 	return new Hash< Key , ItemType , HashFunction > ;
 }
