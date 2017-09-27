@@ -14,7 +14,7 @@ class DOList: public IList<ItemType>{
 		struct Node{
 			ItemType value ;
 
-			void* outptr ;
+			void *outptr ;
 
 			Node *next ;
 			Node *prev ;

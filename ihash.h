@@ -2,9 +2,11 @@
 #define IHASH_H
 
 typedef unsigned long Pos ;
-typedef unsigned long size_t ;
+typedef unsigned long size ;
+/*template <class Key, class ItemType>
+typedef Key (*HashFunction)(ItemType value) ; */
 
-template <class Key , class ItemType >
+template <class Key , class ItemType , typename Key HashFunction( ItemType value) = RSHash >
 class IHash {
 	public:
 		// adding and extracting functions
@@ -14,9 +16,14 @@ class IHash {
 		virtual ItemType extractFirst( const Key key ) = 0 ;
 		virtual ItemType extractLast( const Key key ) = 0 ;
 		// info and managing space functions
-		virtual size_t sizeOfList( const Key key ) = 0 ;
-		virtual size_t sizeOfList( void ) = 0 ;
-		virtual size_t sizeOfTable( void ) = 0 ;
+		virtual size sizeOfList( const Key key ) = 0 ;
+		virtual size sizeOfList( void ) = 0 ;
+		virtual size sizeOfTable( void ) = 0 ;
+		virtual bool isEmpty( void ) = 0 ;
+		virtual bool isEmpty( const Key key ) = 0 ;
+		virtual bool isFull( void ) = 0 ;
+		virtual size density( void ) = 0 ;
+		virtual bool contained( ItemType value ) = 0 ;
 
 		virtual void clear( void ) = 0 ;
 };

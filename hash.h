@@ -11,17 +11,19 @@
 	#include "GeneralHashFunctions.h"
 #endif
 
-template <class Key , class ItemType >
-class Hash: public IHash< Key, ItemType > {
+template <	class Key ,
+			class ItemType ,
+			class Key HashFunction( ItemType ) = RSHash >
+class Hash: public IHash< Key, ItemType, HashFunction > {
 	private:
-        enum{ DEFAULT_CAPACITY = 100 };
+		enum{ DEFAULT_CAPACITY = 100 };
 
 		struct KeyNode {
 			Key keyValue ;
 			IList<ItemType> *keyptr ;
 
 			KeyNode( void ) {
-                keyValue = NULL ;
+				keyValue = NULL ;
 				keyptr = nullptr ;
 			}
 			~KeyNode( void ) {
@@ -32,18 +34,34 @@ class Hash: public IHash< Key, ItemType > {
 				KeyNode& operator= (const KeyNode &keyNode ) ;
 		};
 
-		IList<Key> *keyList ;
+		Key keys[ DEFAULT_CAPACITY ] ;
 		IList<ItemType> *itemsList[ DEFAULT_CAPACITY ] ;
 
 	public:
 		Hash( void ) ;
 		~Hash( void ) ;
 
-		virtual void release( void ) ;
+		// adding and extracting functions
+		virtual void append( const ItemType value ) ;
+		virtual ItemType extract( const ItemType value ) ;
+		virtual ItemType extract( const Key key , const Pos position ) ;
+		virtual ItemType extractFirst( const Key key ) ;
+		virtual ItemType extractLast( const Key key ) ;
+		// info and managing space functions
+		virtual size sizeOfList( const Key key ) ;
+		virtual size sizeOfList( void ) ;
+		virtual size sizeOfTable( void ) ;
+		virtual bool isEmpty( void ) ;
+		virtual bool isEmpty( const Key key ) ;
+		virtual bool isFull( void ) ;
+		virtual size density( void ) ;
+		virtual bool contained( ItemType value ) ;
+
+		virtual void clear( void ) ;
 };
 
-template <class Key , class ItemType>
-IHash< Key , ItemType >* factoryHash( void ) {
-    return new Hash< Key , ItemType > ;
+template <class Key , class ItemType , typename Key HashFunction( ItemType ) = RSHash >
+IHash< Key , ItemType , HashFunction >* factoryHash( void ) {
+	return new Hash< Key , ItemType , HashFunction > ;
 }
 #endif // HASH_H
