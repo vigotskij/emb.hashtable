@@ -3,6 +3,7 @@
 
 typedef unsigned long Pos ;
 typedef unsigned long size ;
+typedef float size_f ;
 
 template <class Key , class ItemType>
 class IHash {
@@ -20,8 +21,9 @@ class IHash {
 		virtual bool isEmpty( void ) = 0 ;
 		virtual bool isEmpty( const Key key ) = 0 ;
 		virtual bool isFull( void ) = 0 ;
-		virtual size density( void ) = 0 ;
+		virtual size_f density( void ) = 0 ;
 		virtual bool contained( ItemType value ) = 0 ;
+        virtual bool contained( Key key ) = 0 ;
 
 		virtual void clear( void ) = 0 ;
 };

@@ -10,7 +10,6 @@
 #ifndef GHF_H
 	#include "GeneralHashFunctions.h"
 #endif
-#define HashFunction RSHash
 
 template <class Key, class ItemType>
 class Hash: public IHash< Key, ItemType > {
@@ -34,6 +33,8 @@ class Hash: public IHash< Key, ItemType > {
 		};
 
 		KeyNode table[ DEFAULT_CAPACITY ] ;
+		size keyCount ;
+		size itemCount ;
 
 	public:
 		Hash( void ) ;
@@ -52,8 +53,9 @@ class Hash: public IHash< Key, ItemType > {
 		virtual bool isEmpty( void ) ;
 		virtual bool isEmpty( const Key key ) ;
 		virtual bool isFull( void ) ;
-		virtual size density( void ) ;
+		virtual size_f density( void ) ;
 		virtual bool contained( ItemType value ) ;
+        virtual bool contained( Key key ) ;
 
 		virtual void clear( void ) ;
 };
