@@ -23,7 +23,7 @@
 #include <string>
 
 
-typedef unsigned int (*HashFunction)(const std::string&);
+typedef unsigned int (*Hash_t)(const std::string&);
 
 
 unsigned int RSHash  (const std::string& str);

@@ -10,9 +10,10 @@
 #ifndef GHF_H
 	#include "GeneralHashFunctions.h"
 #endif
+#define HashFunction RSHash
 
-template <class Key, class ItemType, typename Key HashFunction( const ItemType& )>
-class Hash: public IHash< Key, ItemType, HashFunction > {
+template <class Key, class ItemType>
+class Hash: public IHash< Key, ItemType > {
 	private:
 		enum{ DEFAULT_CAPACITY = 100 };
 
@@ -45,7 +46,7 @@ class Hash: public IHash< Key, ItemType, HashFunction > {
 		virtual ItemType extractFirst( const Key key ) ;
 		virtual ItemType extractLast( const Key key ) ;
 		// info and managing space functions
-		virtual size sizeOfList( const Key key ) ;
+		virtual size sizeOf( const Key key ) ;
 		virtual size sizeOfTable( void ) ;
 		virtual size Keys( void ) ;
 		virtual bool isEmpty( void ) ;
@@ -57,8 +58,8 @@ class Hash: public IHash< Key, ItemType, HashFunction > {
 		virtual void clear( void ) ;
 };
 
-template <class Key , class ItemType , typename Key HashFunction( const ItemType& )>
-IHash< Key , ItemType , HashFunction >* factoryHash( void ) {
-	return new Hash< Key , ItemType , HashFunction > ;
+template <class Key , class ItemType >
+IHash< Key , ItemType >* factoryHash( void ) {
+	return new Hash< Key , ItemType > ;
 }
 #endif // HASH_H
