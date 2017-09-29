@@ -54,8 +54,8 @@ class Hash: public IHash< Key, ItemType > {
 		virtual bool isEmpty( const Key key ) ;
 		virtual bool isFull( void ) ;
 		virtual size_f density( void ) ;
-		virtual bool contained( ItemType value ) ;
-        virtual bool contained( Key key ) ;
+		virtual bool contained( const ItemType value ) ;
+        virtual bool contained( const Key key ) ;
 
 		virtual void clear( void ) ;
 };

@@ -22,8 +22,8 @@ class IHash {
 		virtual bool isEmpty( const Key key ) = 0 ;
 		virtual bool isFull( void ) = 0 ;
 		virtual size_f density( void ) = 0 ;
-		virtual bool contained( ItemType value ) = 0 ;
-        virtual bool contained( Key key ) = 0 ;
+		virtual bool contained( const ItemType value ) = 0 ;
+        virtual bool contained( const Key key ) = 0 ;
 
 		virtual void clear( void ) = 0 ;
 };

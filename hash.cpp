@@ -5,11 +5,13 @@ typedef unsigned int uint ;
 
 template <class Key, class ItemType >
 Hash<Key, ItemType>::Hash( void ){
+	keyCount = 0 ;
+	itemCount = 0 ;
 }
 
 template< class Key , class ItemType >
 Hash<Key, ItemType>::~Hash( void ){
-	;
+	clear() ;
 }
 
 template< class Key , class ItemType >
@@ -65,11 +67,11 @@ size_f Hash< Key , ItemType >::density( void ) {
 	return tr ;
 }
 template< class Key , class ItemType >
-bool Hash< Key , ItemType >::contained( ItemType value ) {
+bool Hash< Key , ItemType >::contained( const ItemType value ) {
 	;
 }
 template <class Key , class ItemType >
-bool Hash<Key , ItemType >::contained( Key key ) {
+bool Hash<Key , ItemType >::contained( const Key key ) {
 	;
 }
 
