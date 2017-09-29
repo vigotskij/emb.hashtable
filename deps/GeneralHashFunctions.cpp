@@ -29,7 +29,7 @@ unsigned int HashFunction( const char* str )
 
 	for( ; control != '\0' ; control++)
 	{
-		hash = hash * a + str[ control ] ;
+		hash = hash * a + *control ;
 		a = a * b;
 	}
 

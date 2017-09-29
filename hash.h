@@ -33,8 +33,14 @@ class Hash: public IHash< Key, ItemType > {
 		};
 
 		KeyNode table[ DEFAULT_CAPACITY ] ;
+
 		size keyCount ;
 		size itemCount ;
+
+		//helpers
+        size findKey( Key key ) ;
+		bool addKey( Key key ) ;
+        bool addValueToKey( ItemType value , Key key ) ;
 
 	public:
 		Hash( void ) ;
