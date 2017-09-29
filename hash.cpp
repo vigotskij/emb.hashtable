@@ -82,4 +82,4 @@ void Hash< Key , ItemType >::clear( void ) {
 }
 
 
-template class Hash< uint , std::string > ;
+template class Hash< uint , char* > ;

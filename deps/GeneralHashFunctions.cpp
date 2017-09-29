@@ -19,6 +19,23 @@
 	#include "GeneralHashFunctions.h"
 #endif
 
+unsigned int HashFunction( const char* str )
+{
+	const char *control = str ;
+
+	unsigned int b    = 378551;
+	unsigned int a    = 63689;
+	unsigned int hash = 0;
+
+	for( ; control != '\0' ; control++)
+	{
+		hash = hash * a + str[ control ] ;
+		a = a * b;
+	}
+
+	return hash;
+}
+
 
 unsigned int RSHash(const std::string& str)
 {
@@ -28,8 +45,8 @@ unsigned int RSHash(const std::string& str)
 
    for(std::size_t i = 0; i < str.length(); i++)
    {
-      hash = hash * a + str[i];
-      a    = a * b;
+	  hash = hash * a + str[i];
+	  a    = a * b;
    }
 
    return hash;
