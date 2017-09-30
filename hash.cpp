@@ -56,21 +56,38 @@ void Hash< Key , ItemType >::append( const ItemType value ) {
 template< class Key , class ItemType >
 ItemType Hash< Key , ItemType >::extract( const ItemType value ) {
 	ItemType tr = NULL ;
+	Key key = HashFunction( value ) ;
+	if( contained( key ) ) {
+		size idx = findKey( key ) ;
+		tr = table[ idx ].keyptr->extractByValue( value ) ;
+	}
 	return tr ;
 }
 template< class Key , class ItemType >
 ItemType Hash< Key , ItemType >::extract( const Key key , Pos position ) {
 	ItemType tr = NULL ;
+	if( contained( key ) ) {
+		size idx = findKey( key ) ;
+		tr = table[ idx ].keyptr->extractByIndex( position ) ;
+	}
 	return tr ;
 }
 template< class Key , class ItemType >
 ItemType Hash< Key , ItemType >::extractFirst( const Key key ) {
 	ItemType tr = NULL ;
+	if( contained( key ) ) {
+		size idx = findKey( key ) ;
+		tr = table[ idx ].keyptr->extractFirst() ;
+	}
 	return tr ;
 }
 template< class Key , class ItemType >
 ItemType Hash< Key , ItemType >::extractLast( const Key key ) {
-	ItemType tr ;
+	ItemType tr = NULL ;
+	if( contained( key ) ) {
+		size idx = findKey( key ) ;
+		tr = table[ idx ].keyptr->extractLast() ;
+	}
 	return tr ;
 }
 
@@ -78,6 +95,10 @@ ItemType Hash< Key , ItemType >::extractLast( const Key key ) {
 template< class Key , class ItemType >
 size Hash< Key , ItemType >::sizeOf( const Key key ) {
 	size tr = 0 ;
+	if( contained( key ) ) {
+		size idx = findKey( key ) ;
+		tr = table[ idx ].keyptr->listSize() ;
+	}
 	return tr ;
 
 }
@@ -95,13 +116,16 @@ bool Hash< Key , ItemType >::isEmpty( void ) {
 }
 template< class Key , class ItemType >
 bool Hash< Key , ItemType >::isEmpty( const Key key ) {
-	// to implement ...
-	return false ;
+	bool tr = false ;
+	if( contained( key ) ) {
+		size idx = findKey( key ) ;
+		tr = table[ idx ].keyptr->isEmpty() ;
+	}
+	return tr ;
 }
 template< class Key , class ItemType >
 bool Hash< Key , ItemType >::isFull( void ) {
-    // to implement ...
-	return false ;
+	return keyCount == DEFAULT_CAPACITY ;
 }
 template< class Key , class ItemType >
 size_f Hash< Key , ItemType >::density( void ) {
