@@ -2,13 +2,18 @@
 	#include "hash.h"
 #endif
 #include <string>
+#include <iostream>
+#include <stdlib>
+
 typedef unsigned int uint ;
 
 int main( int argv , char* argc[] ) {
 	IHash< uint, char* >* hash = factoryHash< uint, char* >() ;
 	delete hash ;
 
-	IHash< uint, char* >* hash2 = new Hash<uint, char* >();
-	delete hash2 ;
+	hash->append( "hola" ) ;
+	std::cout << hash->extract( "hola" ) << std::endl ;
+
+	system( "pause" ) ;
 	return 17 ;
 }

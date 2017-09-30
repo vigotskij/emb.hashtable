@@ -21,15 +21,13 @@
 
 unsigned int HashFunction( const char* str )
 {
-	const char *control = str ;
-
-	unsigned int b    = 378551;
+ 	unsigned int b    = 378551;
 	unsigned int a    = 63689;
 	unsigned int hash = 0;
 
-	for( ; control != '\0' ; control++)
+	for( int idx = 0 ; str[ idx ] != '\0' ; idx++)
 	{
-		hash = hash * a + *control ;
+		hash = hash * a + str[ idx ] ;
 		a = a * b;
 	}
 
