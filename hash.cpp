@@ -49,8 +49,11 @@ void Hash< Key , ItemType >::append( const ItemType value ) {
 	if ( !contained( key ) ) {
 		addKey( key ) ;
 		addValueToKey( value, key ) ;
+		keyCount++ ;
+		itemCount++ ;
 	} else {
 		addValueToKey( value, key ) ;
+        itemCount++ ;
 	}
 }
 template< class Key , class ItemType >
@@ -146,7 +149,7 @@ bool Hash< Key , ItemType >::contained( const ItemType value ) {
 template <class Key , class ItemType >
 bool Hash<Key , ItemType >::contained( const Key key ) {
 	size idx = 0 ;
-	for (; idx < DEFAULT_CAPACITY && table[ idx ].keyValue != key ; idx++ );
+	for (; idx < keyCount && table[ idx ].keyValue != key ; idx++ );
 	return ( table[ idx ].keyValue == key ) ;
 }
 

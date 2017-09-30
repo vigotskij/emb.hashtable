@@ -41,7 +41,7 @@ void DOList<ItemType>::insert( const ItemType value ){
 
 		Node *nextNode = _sortItem_( value ) ;
 
-		if( nextNode ) {
+		if( nextNode != nullptr ) {
 			newNode->prev = nextNode->prev ;
 			newNode->next = nextNode ;
 
