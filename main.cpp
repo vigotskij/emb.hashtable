@@ -12,8 +12,10 @@ int main( int argv , char* argc[] ) {
 	delete hash ;
 
 	hash->append( "hola" ) ;
-    hash->append( "chau" ) ;
+	hash->append( "chau" ) ;
+    hash->append( "gablgabl" ) ;
 	std::cout << hash->extract( "hola" ) << std::endl ;
+    // hash->tempDumpKeys() ;
 
 	system( "pause" ) ;
 	return 17 ;
