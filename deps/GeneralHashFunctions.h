@@ -22,10 +22,7 @@
 
 #include <string>
 
-
-typedef unsigned int (*Hash_t)(const std::string&);
-
-unsigned int HashFunction(const char* str );
+unsigned int RSHashCh(const char* str );
 
 unsigned int RSHash  (const std::string& str);
 unsigned int JSHash  (const std::string& str);

@@ -3,20 +3,20 @@
 #endif
 #include <string>
 #include <iostream>
-#include <stdlib>
+#include <stdlib>  //  for 'system( "pause" )' only ...
 
 typedef unsigned int uint ;
 
 int main( int argv , char* argc[] ) {
-	IHash< uint, char* >* hash = factoryHash< uint, char* >() ;
+	IHash<>* hash = factoryHash<>() ;
 	delete hash ;
 
 	hash->append( "hola" ) ;
 	hash->append( "chau" ) ;
-    hash->append( "gablgabl" ) ;
+	hash->append( "gablgabl" ) ;
 	std::cout << hash->extract( "hola" ) << std::endl ;
-    // hash->tempDumpKeys() ;
+	// hash->tempDumpKeys() ;
 
-	system( "pause" ) ;
+	system( "pause" ) ; // only line stdlib dependent ...
 	return 17 ;
 }

@@ -5,7 +5,9 @@ typedef unsigned long Pos ;
 typedef unsigned long size ;
 typedef float size_f ;
 
-template <class Key , class ItemType>
+template <	class Key = unsigned int,
+			class ItemType = char*,
+			class Key HashFunction( const ItemType) = RSHashCh >
 class IHash {
 	public:
 		// adding and extracting functions
