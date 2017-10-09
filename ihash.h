@@ -5,9 +5,7 @@ typedef unsigned long Pos ;
 typedef unsigned long size ;
 typedef float size_f ;
 
-template <	class Key = unsigned int,
-			class ItemType = char*,
-			class Key HashFunction( const ItemType) = RSHashCh >
+template <class Key, class ItemType, class Key HashFunction( const ItemType)>
 class IHash {
 	public:
 		// adding and extracting functions
@@ -18,7 +16,7 @@ class IHash {
 		virtual ItemType extractLast( Key key ) = 0 ;
 		// info and managing space functions
 		virtual size sizeOf( Key key ) = 0 ;
-   		virtual size sizeOfTable( void ) = 0 ;
+		virtual size sizeOfTable( void ) = 0 ;
 		virtual size keysCount( void ) = 0 ;
 		virtual bool isEmpty( void ) = 0 ;
 		virtual bool isEmpty( Key key ) = 0 ;
@@ -27,7 +25,7 @@ class IHash {
 		virtual bool contained( ItemType value ) = 0 ;
 		virtual bool contained( Key key ) = 0 ;
 		virtual Key* dumpKeys( void ) = 0 ;
-        // virtual void tempDumpKeys( void ) = 0 ; // only for tests. will die soon enough.
+		// virtual void tempDumpKeys( void ) = 0 ; // only for tests. will die soon enough.
 
 		virtual void clear( void ) = 0 ;
 };

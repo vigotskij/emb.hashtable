@@ -14,9 +14,7 @@
 
 typedef unsigned int uint ;
 
-template <	class Key = uint ,
-			class ItemType = char* ,
-			class Key HashFunction( const ItemType ) = RSHashCh >
+template <class Key, class ItemType, class Key HashFunction( const ItemType )>
 class Hash: public IHash< Key, ItemType, HashFunction > {
 	private:
 		enum{ DEFAULT_CAPACITY = 256 };

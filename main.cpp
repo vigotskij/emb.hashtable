@@ -8,7 +8,7 @@
 typedef unsigned int uint ;
 
 int main( int argv , char* argc[] ) {
-	IHash<>* hash = factoryHash<>() ;
+	IHash<uint,char*,RSHashCh>* hash = factoryHash<uint,char*,RSHashCh>() ;
 	delete hash ;
 
 	hash->append( "hola" ) ;
