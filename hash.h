@@ -66,6 +66,9 @@ class Hash: public IHash< Key, ItemType > {
 		virtual bool contained( ItemType value ) ;
 		virtual bool contained( Key key ) ;
 
+        virtual Key* dumpKeys( void ) ;
+		virtual void tempDumpKeys( void ) ;
+
 		virtual void clear( void ) ;
 };
 
@@ -227,21 +230,25 @@ bool Hash<Key , ItemType >::contained( Key key ) {
 	for (; idx < keyCount && table[ idx ].keyValue != key ; idx++ );
 	return ( table[ idx ].keyValue == key ) ;
 }
-/*
-template <class Key, class ItemType, class Key HashFunction( const ItemType)>
-Key* Hash<Key, ItemType , HashFunction >::dumpKeys( void ){
+//
+//
+//
+template <class Key, class ItemType>
+Key* Hash<Key, ItemType>::dumpKeys( void ){
 	Key *keys ;
-	for( int idx = 0 ; table[ idx ].keyptr != nullptr ; idx++ ) {
+	unsigned int idx = 0 ;
+	for( ; idx < keyCount ; idx++ ) {
 		keys[ idx ] = table[ idx ].keyValue ;
 	}
+	keys[ idx ] = nullptr ;
 	return keys ;
 }
-template <class Key, class ItemType, class Key HashFunction( const ItemType)>
-void Hash<Key, ItemType , HashFunction >::tempDumpKeys( void ){
-	for( int idx = 0 ; idx < keyCount ; idx++ ) {
+template <class Key, class ItemType>
+void Hash<Key, ItemType>::tempDumpKeys( void ){
+	for( unsigned int idx = 0 ; idx < keyCount ; idx++ ) {
 		std::cout << table[ idx ].keyValue << std::endl ;
 	}
-}  */
+}
 
 //
 template< class Key , class ItemType >
