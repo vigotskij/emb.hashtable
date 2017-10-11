@@ -14,18 +14,8 @@
 
 typedef unsigned int uint ;
 
-<<<<<<< HEAD
-
-template <class Key, class ItemType, class Key HashFunction( const ItemType ) >
-=======
-<<<<<<< HEAD
 template < class Key, class ItemType >
 class Hash: public IHash< Key, ItemType > {
-=======
-template <class Key, class ItemType, class Key HashFunction( const ItemType )>
->>>>>>> a71add0764c50ccae292fadb15a953dc7937c051
-class Hash: public IHash< Key, ItemType, HashFunction > {
->>>>>>> ae237e9c4d47da4d8bb49285757bc418163a13bd
 	private:
 		enum{ DEFAULT_CAPACITY = 256 };
 
@@ -237,7 +227,6 @@ bool Hash<Key , ItemType >::contained( Key key ) {
 	for (; idx < keyCount && table[ idx ].keyValue != key ; idx++ );
 	return ( table[ idx ].keyValue == key ) ;
 }
-<<<<<<< HEAD
 /*
 template <class Key, class ItemType, class Key HashFunction( const ItemType)>
 Key* Hash<Key, ItemType , HashFunction >::dumpKeys( void ){
@@ -253,8 +242,6 @@ void Hash<Key, ItemType , HashFunction >::tempDumpKeys( void ){
 		std::cout << table[ idx ].keyValue << std::endl ;
 	}
 }  */
-=======
->>>>>>> a71add0764c50ccae292fadb15a953dc7937c051
 
 //
 template< class Key , class ItemType >
