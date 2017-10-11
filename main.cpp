@@ -9,7 +9,6 @@ typedef unsigned int uint ;
 
 int main( int argv , char* argc[] ) {
 	IHash<uint,char*,RSHashCh>* hash = factoryHash<uint,char*,RSHashCh>() ;
-	delete hash ;
 
 	hash->append( "hola" ) ;
 	hash->append( "chau" ) ;
@@ -18,5 +17,8 @@ int main( int argv , char* argc[] ) {
 	// hash->tempDumpKeys() ;
 
 	system( "pause" ) ; // only line stdlib dependent ...
+
+	delete hash ;
+
 	return 17 ;
 }

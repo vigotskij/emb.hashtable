@@ -5,7 +5,7 @@ typedef unsigned long Pos ;
 typedef unsigned long size ;
 typedef float size_f ;
 
-template <class Key, class ItemType, class Key HashFunction( const ItemType)>
+template <class Key, class ItemType, class Key HashFunction( const ItemType )>
 class IHash {
 	public:
 		// adding and extracting functions
@@ -24,7 +24,7 @@ class IHash {
 		virtual size_f density( void ) = 0 ;
 		virtual bool contained( ItemType value ) = 0 ;
 		virtual bool contained( Key key ) = 0 ;
-		virtual Key* dumpKeys( void ) = 0 ;
+		// virtual Key* dumpKeys( void ) = 0 ;
 		// virtual void tempDumpKeys( void ) = 0 ; // only for tests. will die soon enough.
 
 		virtual void clear( void ) = 0 ;
