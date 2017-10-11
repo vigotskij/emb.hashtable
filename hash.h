@@ -14,9 +14,18 @@
 
 typedef unsigned int uint ;
 
+<<<<<<< HEAD
 
 template <class Key, class ItemType, class Key HashFunction( const ItemType ) >
+=======
+<<<<<<< HEAD
+template < class Key, class ItemType >
+class Hash: public IHash< Key, ItemType > {
+=======
+template <class Key, class ItemType, class Key HashFunction( const ItemType )>
+>>>>>>> a71add0764c50ccae292fadb15a953dc7937c051
 class Hash: public IHash< Key, ItemType, HashFunction > {
+>>>>>>> ae237e9c4d47da4d8bb49285757bc418163a13bd
 	private:
 		enum{ DEFAULT_CAPACITY = 256 };
 
@@ -66,8 +75,6 @@ class Hash: public IHash< Key, ItemType, HashFunction > {
 		virtual size_f density( void ) ;
 		virtual bool contained( ItemType value ) ;
 		virtual bool contained( Key key ) ;
-		virtual Key* dumpKeys( void ) ;
-		// virtual void tempDumpKeys( void ) ;
 
 		virtual void clear( void ) ;
 };
@@ -79,14 +86,15 @@ class Hash: public IHash< Key, ItemType, HashFunction > {
 //
 // PRIVATE
 //
-template <class Key, class ItemType, class Key HashFunction( const ItemType) >
-size Hash< Key, ItemType , HashFunction >::findKey( Key key ){
+
+template <class Key, class ItemType >
+size Hash< Key, ItemType >::findKey( Key key ){
 	size tr = 0 ;
 	for( ; tr < DEFAULT_CAPACITY && table[ tr ].keyValue != key ; tr++ ) ;
 	return tr ;
 }
-template <class Key, class ItemType, class Key HashFunction( const ItemType) >
-bool Hash< Key, ItemType , HashFunction >::addKey( Key key ) {
+template <class Key, class ItemType >
+bool Hash< Key, ItemType >::addKey( Key key ) {
 	bool tr = false ;
 	if( !isFull() ) {
 		table[ keyCount ].keyValue = key ;
@@ -95,8 +103,8 @@ bool Hash< Key, ItemType , HashFunction >::addKey( Key key ) {
 	}
 	return tr ;
 }
-template <class Key, class ItemType, class Key HashFunction( const ItemType) >
-bool Hash< Key, ItemType , HashFunction >::addValueToKey( ItemType value, Key key ){
+template <class Key, class ItemType >
+bool Hash< Key, ItemType >::addValueToKey( ItemType value, Key key ){
 	bool tr = false ;
 	if ( contained( key ) ) {
 		size idx = findKey( key ) ;
@@ -109,19 +117,19 @@ bool Hash< Key, ItemType , HashFunction >::addValueToKey( ItemType value, Key ke
 //
 // PUBLIC
 //
-template <class Key, class ItemType, class Key HashFunction( const ItemType) >
-Hash<Key, ItemType , HashFunction >::Hash( void ){
+template <class Key, class ItemType >
+Hash<Key, ItemType >::Hash( void ){
 	keyCount = 0 ;
 	itemCount = 0 ;
 }
 
-template< class Key , class ItemType, class Key HashFunction( const ItemType) >
-Hash<Key, ItemType , HashFunction >::~Hash( void ){
+template< class Key , class ItemType >
+Hash<Key, ItemType >::~Hash( void ){
 	clear() ;
 }
 
-template< class Key , class ItemType, class Key HashFunction( const ItemType) >
-void Hash< Key , ItemType , HashFunction >::append( ItemType value ) {
+template< class Key , class ItemType >
+void Hash< Key , ItemType >::append( ItemType value ) {
 	Key key = HashFunction( value ) ;
 	if ( !contained( key ) ) {
 		addKey( key ) ;
@@ -133,8 +141,8 @@ void Hash< Key , ItemType , HashFunction >::append( ItemType value ) {
 		itemCount++ ;
 	}
 }
-template< class Key , class ItemType, class Key HashFunction( const ItemType) >
-ItemType Hash< Key , ItemType , HashFunction >::extract( ItemType value ) {
+template< class Key , class ItemType >
+ItemType Hash< Key , ItemType >::extract( ItemType value ) {
 	ItemType tr = NULL ;
 	Key key = HashFunction( value ) ;
 	if( contained( key ) ) {
@@ -143,8 +151,8 @@ ItemType Hash< Key , ItemType , HashFunction >::extract( ItemType value ) {
 	}
 	return tr ;
 }
-template< class Key , class ItemType, class Key HashFunction( const ItemType) >
-ItemType Hash< Key , ItemType , HashFunction >::extract( Key key , Pos position ) {
+template< class Key , class ItemType >
+ItemType Hash< Key , ItemType >::extract( Key key , Pos position ) {
 	ItemType tr = NULL ;
 	if( contained( key ) ) {
 		size idx = findKey( key ) ;
@@ -152,8 +160,8 @@ ItemType Hash< Key , ItemType , HashFunction >::extract( Key key , Pos position 
 	}
 	return tr ;
 }
-template< class Key , class ItemType, class Key HashFunction( const ItemType) >
-ItemType Hash< Key , ItemType , HashFunction >::extractFirst( Key key ) {
+template< class Key , class ItemType >
+ItemType Hash< Key , ItemType >::extractFirst( Key key ) {
 	ItemType tr = NULL ;
 	if( contained( key ) ) {
 		size idx = findKey( key ) ;
@@ -161,8 +169,8 @@ ItemType Hash< Key , ItemType , HashFunction >::extractFirst( Key key ) {
 	}
 	return tr ;
 }
-template< class Key , class ItemType, class Key HashFunction( const ItemType) >
-ItemType Hash< Key , ItemType , HashFunction >::extractLast( Key key ) {
+template< class Key , class ItemType >
+ItemType Hash< Key , ItemType >::extractLast( Key key ) {
 	ItemType tr = NULL ;
 	if( contained( key ) ) {
 		size idx = findKey( key ) ;
@@ -172,8 +180,8 @@ ItemType Hash< Key , ItemType , HashFunction >::extractLast( Key key ) {
 }
 
 //
-template< class Key , class ItemType, class Key HashFunction( const ItemType) >
-size Hash< Key , ItemType , HashFunction >::sizeOf( Key key ) {
+template< class Key , class ItemType >
+size Hash< Key , ItemType >::sizeOf( Key key ) {
 	size tr = 0 ;
 	if( contained( key ) ) {
 		size idx = findKey( key ) ;
@@ -182,20 +190,20 @@ size Hash< Key , ItemType , HashFunction >::sizeOf( Key key ) {
 	return tr ;
 
 }
-template< class Key , class ItemType, class Key HashFunction( const ItemType) >
-size Hash< Key , ItemType , HashFunction >::sizeOfTable( void ) {
+template< class Key , class ItemType >
+size Hash< Key , ItemType >::sizeOfTable( void ) {
 	return itemCount ;
 }
-template< class Key , class ItemType, class Key HashFunction( const ItemType) >
-size Hash< Key , ItemType , HashFunction >::keysCount( void ) {
+template< class Key , class ItemType >
+size Hash< Key , ItemType >::keysCount( void ) {
 	return keyCount ;
 }
-template< class Key , class ItemType, class Key HashFunction( const ItemType) >
-bool Hash< Key , ItemType , HashFunction >::isEmpty( void ) {
+template< class Key , class ItemType >
+bool Hash< Key , ItemType >::isEmpty( void ) {
 	return keyCount == 0 ;
 }
-template< class Key , class ItemType, class Key HashFunction( const ItemType) >
-bool Hash< Key , ItemType , HashFunction >::isEmpty( Key key ) {
+template< class Key , class ItemType >
+bool Hash< Key , ItemType >::isEmpty( Key key ) {
 	bool tr = false ;
 	if( contained( key ) ) {
 		size idx = findKey( key ) ;
@@ -203,18 +211,18 @@ bool Hash< Key , ItemType , HashFunction >::isEmpty( Key key ) {
 	}
 	return tr ;
 }
-template< class Key , class ItemType, class Key HashFunction( const ItemType) >
-bool Hash< Key , ItemType , HashFunction >::isFull( void ) {
+template< class Key , class ItemType >
+bool Hash< Key , ItemType >::isFull( void ) {
 	return keyCount == DEFAULT_CAPACITY ;
 }
-template< class Key , class ItemType, class Key HashFunction( const ItemType) >
-size_f Hash< Key , ItemType , HashFunction >::density( void ) {
+template< class Key , class ItemType >
+size_f Hash< Key , ItemType >::density( void ) {
 	size_f tr = 0 ;
 	if( itemCount != 0 && keyCount != 0 ) tr = itemCount / keyCount ;
 	return tr ;
 }
-template< class Key , class ItemType, class Key HashFunction( const ItemType) >
-bool Hash< Key , ItemType , HashFunction >::contained( ItemType value ) {
+template< class Key , class ItemType >
+bool Hash< Key , ItemType >::contained( ItemType value ) {
 	bool tr = false ;
 	Key key = HashFunction( value ) ;
 	if( contained( key ) ){
@@ -223,12 +231,13 @@ bool Hash< Key , ItemType , HashFunction >::contained( ItemType value ) {
 	}
 	return tr ;
 }
-template <class Key , class ItemType, class Key HashFunction( const ItemType) >
-bool Hash<Key , ItemType , HashFunction >::contained( Key key ) {
+template <class Key , class ItemType >
+bool Hash<Key , ItemType >::contained( Key key ) {
 	size idx = 0 ;
 	for (; idx < keyCount && table[ idx ].keyValue != key ; idx++ );
 	return ( table[ idx ].keyValue == key ) ;
 }
+<<<<<<< HEAD
 /*
 template <class Key, class ItemType, class Key HashFunction( const ItemType)>
 Key* Hash<Key, ItemType , HashFunction >::dumpKeys( void ){
@@ -244,10 +253,12 @@ void Hash<Key, ItemType , HashFunction >::tempDumpKeys( void ){
 		std::cout << table[ idx ].keyValue << std::endl ;
 	}
 }  */
+=======
+>>>>>>> a71add0764c50ccae292fadb15a953dc7937c051
 
 //
-template< class Key , class ItemType, class Key HashFunction( const ItemType) >
-void Hash< Key , ItemType , HashFunction >::clear( void ) {
+template< class Key , class ItemType >
+void Hash< Key , ItemType >::clear( void ) {
 	size temp = keyCount ;
 	for( size idx = 0 ; idx < temp ; idx ++ ) {
 		keyCount-- ;
@@ -256,13 +267,12 @@ void Hash< Key , ItemType , HashFunction >::clear( void ) {
 		delete table[idx].keyptr ;
 	}
 }
-
 //
 // FACTORY
 //
-template <class Key , class ItemType, class Key HashFunction( const ItemType) >
-IHash< Key , ItemType , HashFunction >* factoryHash( void ) {
-	return new Hash< Key , ItemType , HashFunction > ;
+template <class Key , class ItemType >
+IHash< Key , ItemType >* factoryHash( void ) {
+	return new Hash< Key , ItemType > ;
 }
 
 
