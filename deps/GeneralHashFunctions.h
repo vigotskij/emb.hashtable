@@ -22,7 +22,7 @@
 
 #include <string>
 
-unsigned int RSHashCh(const char* str );
+unsigned int HashFunction(const char* str );
 
 unsigned int RSHash  (const std::string& str);
 unsigned int JSHash  (const std::string& str);

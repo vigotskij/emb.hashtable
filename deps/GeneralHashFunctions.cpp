@@ -19,7 +19,7 @@
 	#include "GeneralHashFunctions.h"
 #endif
 
-unsigned int RSHash( const char* str )
+unsigned int HashFunction( const char* str )
 {
  	unsigned int b    = 378551;
 	unsigned int a    = 63689;
