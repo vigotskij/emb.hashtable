@@ -14,8 +14,13 @@
 
 typedef unsigned int uint ;
 
+<<<<<<< HEAD
 template < class Key, class ItemType >
 class Hash: public IHash< Key, ItemType > {
+=======
+template <class Key, class ItemType, class Key HashFunction( const ItemType )>
+class Hash: public IHash< Key, ItemType, HashFunction > {
+>>>>>>> ae237e9c4d47da4d8bb49285757bc418163a13bd
 	private:
 		enum{ DEFAULT_CAPACITY = 256 };
 
