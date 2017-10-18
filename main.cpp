@@ -12,11 +12,14 @@ int main( int argv , char* argc[] ) {
 	IHash<uint,char*> *hash = factoryHash<uint,char*>() ;
 
 	hash->append( "hola" ) ;
-	hash->append( "chau" ) ;
 	hash->append( "gablgabl" ) ;
+	//hash->append( "chau" ) ;
+   //	hash->append( "gablgl" ) ;
+   //	hash->append( "gablgab" ) ;
+
 	uint *keys = hash->dumpKeys() ;
 
-	for( unsigned int idx = 0 ; keys[ idx ] != nullptr ; idx++ ){
+	for( unsigned int idx = 0 ; idx < hash->keysCount() ; idx++ ){
 		std::cout << keys[idx] << std::endl ;
 	}
 	system("pause") ;
@@ -26,8 +29,7 @@ int main( int argv , char* argc[] ) {
 
 	system( "pause" ) ; // only line stdlib dependent ...
 
-    delete keys ;
-	delete hash ;
+   //	delete keys ;
 
 	return 17 ;
 }
