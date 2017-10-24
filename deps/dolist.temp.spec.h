@@ -131,7 +131,7 @@ class DOList<char*>: public IList<char*> {
 			itemCount++ ;
 		}
 	}
-	char* extractByValue( char *value ) {
+	char* remove( char *value ) {
 		char *tr = nullptr ;
 		if( !isEmpty() ){
 			Node *toExtract = _findNode_( value ) ;
@@ -162,7 +162,7 @@ class DOList<char*>: public IList<char*> {
 		}
 		return tr ;
 	}
-	char* extractByIndex( Pos position ) {
+	char* remove( Pos position ) {
 		char *tr = nullptr ;
 		if( !isEmpty() ){
 			Node *toExtract = _findNodeByIndex_( position ) ;
@@ -194,7 +194,7 @@ class DOList<char*>: public IList<char*> {
 		}
 		return tr ;
 	}
-	char* extractFirst( void ) {
+	char* removeFirst( void ) {
 		char *tr = nullptr ;
 		if( !isEmpty() ) {
 			Node *temp = first ;
@@ -213,7 +213,7 @@ class DOList<char*>: public IList<char*> {
 
 		return tr ;
 	}
-	char* extractLast( void ) {
+	char* removeLast( void ) {
 		char *tr = nullptr ;
 		if (!isEmpty() ) {
 			Node *temp = last ;
@@ -230,7 +230,7 @@ class DOList<char*>: public IList<char*> {
 	bool replace( char *valueOut, char *valueIn ) {
 		bool tr = false ;
 		if( contained( valueOut ) ) {
-			extractByValue( valueOut ) ;
+			remove( valueOut ) ;
 			insert( valueIn ) ;
 			tr = true ;
 		}
@@ -261,11 +261,9 @@ class DOList<char*>: public IList<char*> {
 	// manage functions
 	void emptyList( void ) {
 		while( !isEmpty() ) {
-			extractLast() ;
+			removeLast() ;
 		}
 	}
-	void cleanRepeated( void ) { }
-	void allocPtr( void ) { }
 } ;
 
 //
@@ -396,7 +394,7 @@ class DOList<std::string>: public IList<std::string> {
 			itemCount++ ;
 		}
 	}
-	std::string extractByValue( std::string value ) {
+	std::string remove( std::string value ) {
 		std::string tr = "" ;
 		if( !isEmpty() ){
 			Node *toExtract = _findNode_( value ) ;
@@ -417,7 +415,7 @@ class DOList<std::string>: public IList<std::string> {
 					last = toExtract->prev ;
 					Node *prev = toExtract->prev ;
 					if( prev != nullptr ) prev->next = nullptr ;
-                    if( prev == nullptr ) first = last ;
+					if( prev == nullptr ) first = last ;
 				}
 
 				delete toExtract ;
@@ -427,7 +425,7 @@ class DOList<std::string>: public IList<std::string> {
 		}
 		return tr ;
 	}
-	std::string extractByIndex( Pos position ) {
+	std::string remove( Pos position ) {
 		std::string tr = "" ;
 		if( !isEmpty() ){
 			Node *toExtract = _findNodeByIndex_( position ) ;
@@ -448,7 +446,7 @@ class DOList<std::string>: public IList<std::string> {
 					last = toExtract->prev ;
 					Node *prev = toExtract->prev ;
 					if( prev != nullptr ) prev->next = nullptr ;
-                    if( prev == nullptr ) first = last ;
+					if( prev == nullptr ) first = last ;
 				}
 
 				delete toExtract ;
@@ -458,7 +456,7 @@ class DOList<std::string>: public IList<std::string> {
 		}
 		return tr ;
 	}
-	std::string extractFirst( void ) {
+	std::string removeFirst( void ) {
 		std::string tr = "" ;
 		if( !isEmpty() ) {
 			Node *temp = first ;
@@ -477,7 +475,7 @@ class DOList<std::string>: public IList<std::string> {
 
 		return tr ;
 	}
-	std::string extractLast( void ) {
+	std::string removeLast( void ) {
 		std::string tr = "" ;
 		if (!isEmpty() ) {
 			Node *temp = last ;
@@ -494,7 +492,7 @@ class DOList<std::string>: public IList<std::string> {
 	bool replace( std::string valueOut, std::string valueIn ) {
 		bool tr = false ;
 		if( contained( valueOut ) ) {
-			extractByValue( valueOut ) ;
+			remove( valueOut ) ;
 			insert( valueIn ) ;
 			tr = true ;
 		}
@@ -525,9 +523,7 @@ class DOList<std::string>: public IList<std::string> {
 	// manage functions
 	void emptyList( void ) {
 		while( !isEmpty() ) {
-			extractLast() ;
+			removeLast() ;
 		}
 	}
-	void cleanRepeated( void ) { }
-	void allocPtr( void ) { }
 } ;

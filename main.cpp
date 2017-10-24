@@ -17,19 +17,9 @@ int main( int argv , char* argc[] ) {
    //	hash->append( "gablgl" ) ;
    //	hash->append( "gablgab" ) ;
 
-	uint *keys = hash->dumpKeys() ;
-
-	for( unsigned int idx = 0 ; idx < hash->keysCount() ; idx++ ){
-		std::cout << keys[idx] << std::endl ;
-	}
-	system("pause") ;
-
-	std::cout << hash->extract( "hola" ) << std::endl ;
-	hash->tempDumpKeys() ;
+	std::cout << hash->remove( "hola" ) << std::endl ;
 
 	system( "pause" ) ; // only line stdlib dependent ...
-
-   //	delete keys ;
 
 	return 17 ;
 }

@@ -87,10 +87,10 @@ class DOList: public IList<ItemType>{
 		~DOList( void ) ;
 		// adding, deleting and replacing functions
 		virtual void insert( ItemType value ) ;
-		virtual ItemType extractByValue( ItemType value ) ;
-		virtual ItemType extractByIndex( Pos position ) ;
-		virtual ItemType extractFirst( void ) ;
-		virtual ItemType extractLast( void ) ;
+		virtual ItemType remove( ItemType value ) ;
+		virtual ItemType remove( Pos position ) ;
+		virtual ItemType removeFirst( void ) ;
+		virtual ItemType removeLast( void ) ;
 		virtual bool replace( ItemType valueOut, ItemType valueIn ) ;
 		// capacity and info functions
 		virtual bool isEmpty( void ) ;
@@ -99,8 +99,6 @@ class DOList: public IList<ItemType>{
 		virtual bool contained( ItemType value ) ;
 		// manage functions
 		virtual void emptyList( void ) ;
-		virtual void cleanRepeated( void ) ;
-		virtual void allocPtr( void ) ;
 };
 
 //PRIVATE:
@@ -170,7 +168,7 @@ void DOList<ItemType>::insert( ItemType value ){
 	}
 }
 template <class ItemType>
-ItemType DOList<ItemType>::extractByValue( ItemType value ) {
+ItemType DOList<ItemType>::remove( ItemType value ) {
 	ItemType tr = NULL ;
 	if( !isEmpty() ){
 		Node *toExtract = _findNode_( value ) ;
@@ -191,7 +189,7 @@ ItemType DOList<ItemType>::extractByValue( ItemType value ) {
 				last = toExtract->prev ;
 				Node *prev = toExtract->prev ;
 				if( prev != nullptr ) prev->next = nullptr ;
-                if( prev == nullptr ) first = last ;
+				if( prev == nullptr ) first = last ;
 			}
 			delete toExtract ;
 			itemCount-- ;
@@ -200,7 +198,7 @@ ItemType DOList<ItemType>::extractByValue( ItemType value ) {
 	return tr ;
 }
 template <class ItemType>
-ItemType DOList<ItemType>::extractByIndex( Pos position ) {
+ItemType DOList<ItemType>::remove( Pos position ) {
 	ItemType tr = NULL ;
 	if( !isEmpty() ){
 		Node *toExtract = _findNodeByIndex_( position ) ;
@@ -221,7 +219,7 @@ ItemType DOList<ItemType>::extractByIndex( Pos position ) {
 				last = toExtract->prev ;
 				Node *prev = toExtract->prev ;
 				if( prev != nullptr ) prev->next = nullptr ;
-                if( prev == nullptr ) first = last ;
+				if( prev == nullptr ) first = last ;
 			}
 			delete toExtract ;
 			itemCount-- ;
@@ -230,7 +228,7 @@ ItemType DOList<ItemType>::extractByIndex( Pos position ) {
 	return tr ;
 }
 template <class ItemType>
-ItemType DOList<ItemType>::extractFirst( void ) {
+ItemType DOList<ItemType>::removeFirst( void ) {
 	ItemType tr = NULL ;
 	if( !isEmpty() ) {
 		Node *temp = first ;
@@ -250,7 +248,7 @@ ItemType DOList<ItemType>::extractFirst( void ) {
 	return tr ;
 }
 template <class ItemType>
-ItemType DOList<ItemType>::extractLast( void ) {
+ItemType DOList<ItemType>::removeLast( void ) {
 	ItemType tr = NULL ;
 	if (!isEmpty() ) {
 		Node *temp = last ;
@@ -308,16 +306,9 @@ void DOList<ItemType>::emptyList( void ) {
 		extractLast() ;
 	}
 }
-template <class ItemType>
-void DOList<ItemType>::cleanRepeated( void ) { }
-template <class ItemType>
-void DOList<ItemType>::allocPtr( void ) { }
-
 
 template <class ItemType>
 IList<ItemType>* factoryList( void ){
-	IList<ItemType>* toReturn = new DOList<ItemType> ;
-	toReturn->allocPtr() ;
-	return toReturn ;
+	return new DOList<ItemType> ;
 }
 #endif

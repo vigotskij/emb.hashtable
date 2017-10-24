@@ -24,7 +24,7 @@ class Hash: public IHash< Key, ItemType > {
 			IList<ItemType> *keyptr ;
 
 			KeyNode( void ) {
-				keyValue = NULL ;
+				keyValue = DEFAULT_CAPACITY ;
 				keyptr = nullptr ;
 			}
 			~KeyNode( void ) {
@@ -41,7 +41,6 @@ class Hash: public IHash< Key, ItemType > {
 		size itemCount ;
 
 		//helpers
-		size findKey( Key key ) ;
 		bool addKey( Key key ) ;
 		bool addValueToKey( ItemType value , Key key ) ;
 
@@ -51,23 +50,19 @@ class Hash: public IHash< Key, ItemType > {
 
 		// adding and extracting functions
 		virtual void append( ItemType value ) ;
-		virtual ItemType extract( ItemType value ) ;
-		virtual ItemType extract( Key key , Pos position ) ;
-		virtual ItemType extractFirst( Key key ) ;
-		virtual ItemType extractLast( Key key ) ;
+		virtual ItemType remove( ItemType value ) ;
+		virtual ItemType remove( Key key , Pos position ) ;
+		virtual ItemType removeFirst( Key key ) ;
+		virtual ItemType removeLast( Key key ) ;
 		// info and managing space functions
 		virtual size sizeOf( Key key ) ;
 		virtual size sizeOfTable( void ) ;
 		virtual size keysCount( void ) ;
 		virtual bool isEmpty( void ) ;
 		virtual bool isEmpty( Key key ) ;
-		virtual bool isFull( void ) ;
 		virtual size_f density( void ) ;
 		virtual bool contained( ItemType value ) ;
 		virtual bool contained( Key key ) ;
-
-		virtual Key* dumpKeys( void ) ;
-		virtual void tempDumpKeys( void ) ;
 
 		virtual void clear( void ) ;
 };
@@ -79,29 +74,17 @@ class Hash: public IHash< Key, ItemType > {
 //
 // PRIVATE
 //
-
-template <class Key, class ItemType >
-size Hash< Key, ItemType >::findKey( Key key ){
-	size tr = 0 ;
-	for( ; tr < DEFAULT_CAPACITY && table[ tr ].keyValue != key ; tr++ ) ;
-	return tr ;
-}
-template <class Key, class ItemType >
+template<class Key, class ItemType >
 bool Hash< Key, ItemType >::addKey( Key key ) {
-	bool tr = false ;
-	if( !isFull() ) {
-		table[ keyCount ].keyValue = key ;
-		table[ keyCount ].keyptr = factoryList<ItemType>() ;
-		tr = true ;
-	}
-	return tr ;
+	table[ key ].keyValue = key ;
+	table[ key ].keyptr = factoryList<ItemType>() ;
+    return true ;
 }
 template <class Key, class ItemType >
 bool Hash< Key, ItemType >::addValueToKey( ItemType value, Key key ){
 	bool tr = false ;
 	if ( contained( key ) ) {
-		size idx = findKey( key ) ;
-		table[ idx ].keyptr->insert( value ) ;
+		table[ key ].keyptr->insert( value ) ;
 		tr = true ;
 	}
 	return tr ;
@@ -123,9 +106,9 @@ Hash<Key, ItemType >::~Hash( void ){
 
 template< class Key , class ItemType >
 void Hash< Key , ItemType >::append( ItemType value ) {
-	Key key = HashFunction( value ) ;
+	Key key = (HashFunction( value ))% DEFAULT_CAPACITY ;
 	if ( !contained( key ) ) {
-		addKey( key ) ;
+        addKey( key ) ;
 		addValueToKey( value, key ) ;
 		keyCount++ ;
 		itemCount++ ;
@@ -135,39 +118,35 @@ void Hash< Key , ItemType >::append( ItemType value ) {
 	}
 }
 template< class Key , class ItemType >
-ItemType Hash< Key , ItemType >::extract( ItemType value ) {
+ItemType Hash< Key , ItemType >::remove( ItemType value ) {
 	ItemType tr = NULL ;
-	Key key = HashFunction( value ) ;
+	Key key = ( HashFunction( value ) ) % DEFAULT_CAPACITY ;
 	if( contained( key ) ) {
-		size idx = findKey( key ) ;
-		tr = table[ idx ].keyptr->extractByValue( value ) ;
+		tr = table[ key ].keyptr->remove( value ) ;
 	}
 	return tr ;
 }
 template< class Key , class ItemType >
-ItemType Hash< Key , ItemType >::extract( Key key , Pos position ) {
+ItemType Hash< Key , ItemType >::remove( Key key , Pos position ) {
 	ItemType tr = NULL ;
 	if( contained( key ) ) {
-		size idx = findKey( key ) ;
-		tr = table[ idx ].keyptr->extractByIndex( position ) ;
+		tr = table[ key ].keyptr->remove( position ) ;
 	}
 	return tr ;
 }
 template< class Key , class ItemType >
-ItemType Hash< Key , ItemType >::extractFirst( Key key ) {
+ItemType Hash< Key , ItemType >::removeFirst( Key key ) {
 	ItemType tr = NULL ;
 	if( contained( key ) ) {
-		size idx = findKey( key ) ;
-		tr = table[ idx ].keyptr->extractFirst() ;
+		tr = table[ key ].keyptr->removeFirst() ;
 	}
 	return tr ;
 }
 template< class Key , class ItemType >
-ItemType Hash< Key , ItemType >::extractLast( Key key ) {
+ItemType Hash< Key , ItemType >::removeLast( Key key ) {
 	ItemType tr = NULL ;
 	if( contained( key ) ) {
-		size idx = findKey( key ) ;
-		tr = table[ idx ].keyptr->extractLast() ;
+		tr = table[ key ].keyptr->removeLast() ;
 	}
 	return tr ;
 }
@@ -177,8 +156,7 @@ template< class Key , class ItemType >
 size Hash< Key , ItemType >::sizeOf( Key key ) {
 	size tr = 0 ;
 	if( contained( key ) ) {
-		size idx = findKey( key ) ;
-		tr = table[ idx ].keyptr->listSize() ;
+		tr = table[ key ].keyptr->listSize() ;
 	}
 	return tr ;
 
@@ -199,14 +177,9 @@ template< class Key , class ItemType >
 bool Hash< Key , ItemType >::isEmpty( Key key ) {
 	bool tr = false ;
 	if( contained( key ) ) {
-		size idx = findKey( key ) ;
-		tr = table[ idx ].keyptr->isEmpty() ;
+		tr = table[ key ].keyptr->isEmpty() ;
 	}
 	return tr ;
-}
-template< class Key , class ItemType >
-bool Hash< Key , ItemType >::isFull( void ) {
-	return keyCount == DEFAULT_CAPACITY ;
 }
 template< class Key , class ItemType >
 size_f Hash< Key , ItemType >::density( void ) {
@@ -217,48 +190,25 @@ size_f Hash< Key , ItemType >::density( void ) {
 template< class Key , class ItemType >
 bool Hash< Key , ItemType >::contained( ItemType value ) {
 	bool tr = false ;
-	Key key = HashFunction( value ) ;
+	Key key = ( HashFunction( value ) ) % DEFAULT_CAPACITY ;
 	if( contained( key ) ){
-		size idx = findKey( key ) ;
-		tr = table[ idx ].keyptr->contained( value ) ;
+		tr = table[ key ].keyptr->contained( value ) ;
 	}
 	return tr ;
 }
 template <class Key , class ItemType >
 bool Hash<Key , ItemType >::contained( Key key ) {
-	size idx = 0 ;
-	for (; idx < keyCount && table[ idx ].keyValue != key ; idx++ );
-	return ( table[ idx ].keyValue == key ) ;
+	return table[ key ].keyValue == key ;
 }
 //
 //
-//
-template <class Key, class ItemType>
-Key* Hash<Key, ItemType>::dumpKeys( void ){
-	double aux ;
-	Key *keys = (Key*)&aux ;//new Key[ keyCount ] ;
-
-	unsigned int idx = 0 ;
-	for( ; idx < keyCount ; idx++ ) {
-		*(keys + idx )  = table[ idx ].keyValue ;
-		std::cout << idx << " " << keys[ idx ] << std::endl ;
-	}
-	return keys ;
-}
-template <class Key, class ItemType>
-void Hash<Key, ItemType>::tempDumpKeys( void ){
-	for( unsigned int idx = 0 ; idx < keyCount ; idx++ ) {
-		std::cout << table[ idx ].keyValue << std::endl ;
-	}
-}
-
 //
 template< class Key , class ItemType >
 void Hash< Key , ItemType >::clear( void ) {
 	size temp = keyCount ;
 	for( size idx = 0 ; idx < temp ; idx ++ ) {
 		keyCount-- ;
-		table[ idx ].keyValue = NULL ;
+		table[ idx ].keyValue = DEFAULT_CAPACITY ;
 		table[ idx ].keyptr->emptyList() ;
 		delete table[idx].keyptr ;
 	}
